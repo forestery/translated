@@ -5,3 +5,10 @@ chrome.runtime.onInstalled.addListener(function() {
     console.log('add new data');
   });
 });
+
+
+
+
+chrome.notifications.onButtonClicked.addListener(function( notificationId,  buttonIndex) {
+    console.log(notificationId+":"+buttonIndex);
+});

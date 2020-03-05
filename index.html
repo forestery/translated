@@ -2,34 +2,55 @@
     <head>
         <meta charset="UTF-8">
         <style>
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
           body {
-            /*height: 530px;*/
+            height: 100px;
             width: 280px;
             outline: none;
+        
+            
           }
+
+          #wordlist li:hover{
+              background-color:darkgoldenrod;
+              color: aliceblue;
+              
+              
+          }
+          #wordlist{
+              height: 140px;
+            overflow-y:auto;
+          }
+     
+          
    
+   
+        .paddingleft{
+            padding-left: 10px;
+        }
+          
           input {
-              width:250px;
+              width:200px;
               height:30px;
+              font-size: large;
+               
           }
           .mainbody {
-                /*height:450px;*/
+                height:450px;
                 /*border: solid #eee;*/
                 /*border-width:1px 0;*/
             }
 
           .header {
-                height: 60px;
+                /*height: 60px;*/
                 padding: 5px;
             }
 
-            /*
-            .footer {
-                height: 60px;
-                padding:5px;
-                position: absolute; 
-                bottom: 0;
-            }*/
             a:link{
                 color:blueviolet;
             }
@@ -37,13 +58,17 @@
                 color:blueviolet;
             }
             #resultDiv {
-                height: 150px;
-                overflow-y: scroll;
+                height: 180px;
+                overflow-y:auto;
             }
 
             #bigtitle {
                 font-size: xx-large;
+                color:blueviolet;
+                font-family: cursive;
             }
+
+
 
         </style>
       </head>
@@ -53,7 +78,8 @@
         <div class="header">
             <span id="bigtitle">Translated</span>
             
-            <span><a href="help.html">help</a></span>
+            <span><a href="help.html">help</a></span><br>
+            
             
             
             
@@ -62,24 +88,30 @@
         </div>
 
         <div class="mainbody">
-                <input id="searchinput" type="text" placeholder="type a word an press Enter">
+            <br>
+            <span style="color:blueviolet;">- Type a word and press ENTER</span>
+            
+            <div class="paddingleft"><br><input id="searchinput" type="text" ></div>
+            
+
                 <div id="resultDiv"></div>
                 <br>
-                <font style="color: red;">New Word List</font>
+                <span style="color:blueviolet;">- History of query:</span><a id="clearall" style="float:right;" href="#">remove all</a>
                 <ul id="wordlist">
                 </ul>
                 <br>
         </div>
         
-        <!--div class="footer">    
-            
-            <br>
-            about<br>
-            <a href="https://cn.bing.com/" target="_blank">bing dict service</a>
-    
-        </div-->
 
+        <div class="footer">
+            <br>
+            <hr>
+        
+            <span style="font-family: cursive;" id="thequote">Impossibilities are merely things which we have not yet learned.</span><br>
+            <span style="float:right;font-family: cursive;" id="theauthor"> --Maya Angelou</span>
+        </div>
     </div>
+   
       <script src="index.js"></script>
     </body>
   </html>

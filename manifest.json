@@ -7,10 +7,16 @@
         "scripts": ["background.js"],
         "persistent": false
       },
-    "permissions": ["https://cn.bing.com/","clipboardRead","activeTab","storage"],
+    "permissions": ["https://cn.bing.com/","clipboardRead","activeTab","storage","notifications","https://api.forismatic.com/"],
     "browser_action": {
         "default_popup": "index.html",
         "default_icon": "logo.png"
+      },
+      "icons": {
+        "16": "logo.png",
+        "32": "logo.png",
+        "48": "logo.png",
+        "128": "logo.png"
       },
       "commands": {
         "_execute_browser_action": {
