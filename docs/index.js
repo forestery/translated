@@ -64,7 +64,7 @@ function initData(){
 function loadData(){
     wordlist.innerHTML="";
 
-    var data = loadData_get('new');
+    var data = localData_get('new');
 
 
     
