@@ -9,23 +9,24 @@ let thequote = document.getElementById('thequote');
 let theauthor = document.getElementById('theauthor');
 
 
+function localData_set(key , value ){
+    // Put the object into storage
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+function localData_get(key){
+    // Retrieve the object from storage
+    return localStorage.getItem(key);
+}
 
 
-chrome.tabs.executeScript({
-        code: "window.getSelection().toString();"
-    }, function(selection) {
-        searchinput.value = selection[0];
-        addData(searchinput.value);
-        translate(selection[0]);
-        
-    }
-);
+
 
 clearall.addEventListener("click",function(element){
 
-        chrome.storage.local.set({'new': []},function(){
-            loadData();
-        });
+        localData_set('new',[]);
+        loadData();
+        
 
 });
 searchinput.addEventListener("keydown", function(event) {
@@ -39,6 +40,9 @@ searchinput.addEventListener("keydown", function(event) {
 
 
 function initData(){
+    if(localData_get('new') == null){
+        localData_set('new',[]);
+    }
     loadData();
     var xhr = new XMLHttpRequest();
     xhr.responseType = "json";
@@ -59,9 +63,13 @@ function initData(){
 //user can click it to remember it again.
 function loadData(){
     wordlist.innerHTML="";
-    chrome.storage.local.get('new', function(data) {
+
+    var data = loadData_get('new');
+
+
+    
       
-        chrome.browserAction.setBadgeText({text: data.new.length == 0 ? '':data.new.length.toString()});
+    
         for (let item of data.new) {
             let li = document.createElement('li');
             let li_href=document.createElement('a');
@@ -91,19 +99,21 @@ function loadData(){
             wordlist.appendChild(li);
         }
 
-    });
+    
 }
 
 //remove it when you click it.
 function removeData(word){
-    chrome.storage.local.get('new',function(data){
+    var data = localData_get('new');
+
+    
         var k=data.new;
         var filtered = k.filter(function(value,index,arr){return value!=word;});
-        chrome.storage.local.set({'new': filtered},function(){
-            loadData();
+        localData_set('new',filtered);
+        loadData();
             
-        });
-    });
+        
+    
 }
 
 //save new word in the localStroage of chrome browser.
@@ -112,19 +122,19 @@ function addData(word){
     if(word == null || word == "" || word == undefined){
         return;
     }
-    chrome.storage.local.get('new',function(data){
+    var data = localData_get('new');
+
+    
         var k=data.new;
         var word_low=word.toLowerCase().trim();
         if(k.includes(word_low)){
             return;
         }
         k.push(word_low);
-        chrome.storage.local.set({'new': k},function(){
-            loadData();
-            
-        });
-    })
-    
+        localData_set('new',k);
+        loadData();
+        
+        
 }
 
 function translate(word) {
