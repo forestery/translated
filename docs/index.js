@@ -70,7 +70,7 @@ function loadData(){
     
       
     
-        for (let item of data.new) {
+        for (let item of data) {
             let li = document.createElement('li');
             let li_href=document.createElement('a');
             let li_span = document.createElement('span');
@@ -107,7 +107,7 @@ function removeData(word){
     var data = localData_get('new');
 
     
-        var k=data.new;
+        var k=data;
         var filtered = k.filter(function(value,index,arr){return value!=word;});
         localData_set('new',filtered);
         loadData();
@@ -125,7 +125,7 @@ function addData(word){
     var data = localData_get('new');
 
     
-        var k=data.new;
+        var k=data;
         var word_low=word.toLowerCase().trim();
         if(k.includes(word_low)){
             return;
