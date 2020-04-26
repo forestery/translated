@@ -8,7 +8,8 @@ let clearall = document.getElementById('clearall');
 let thequote = document.getElementById('thequote');
 let theauthor = document.getElementById('theauthor');
 
-
+let MP3Play = document.getElementById('MP3Play');
+let wordMP3 = document.getElementById('wordMP3');
 
 
 chrome.tabs.executeScript({
@@ -20,6 +21,13 @@ chrome.tabs.executeScript({
         
     }
 );
+
+
+MP3Play.addEventListener("click",function(element){
+      let player = document.getElementById("wordMP3");
+      player.play();
+
+});
 
 clearall.addEventListener("click",function(element){
 
@@ -134,12 +142,20 @@ function translate(word) {
         var xhr = new XMLHttpRequest();
         xhr.responseType = "document";
         var url = "https://cn.bing.com/dict/search?q="+word;
+        var url_deepl = "https://www.deepl.com/translator#en/zh/"+word;
         xhr.open("GET", url, true);
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4) {
             //display data fetched from bing.
             resultDiv.innerHTML="";
             var ulfetched=xhr.response.querySelector("div.qdef ul");
+            var MP3fetched=xhr.response.querySelector("div.hd_tf a");
+            if (MP3fetched!=undefined && ulfetched!=null){
+                var k = MP3fetched.getAttribute('onmouseover');
+                var k1=k.substr(k.indexOf("https"),k.indexOf("mp3")-k.indexOf("https")+3);
+                wordMP3.src=k1;
+                
+            }
             if(ulfetched==undefined || ulfetched==null){
                 ulfetched=document.createElement('ul');
             }
@@ -151,7 +167,16 @@ function translate(word) {
             more.target="_blank"
             let moreli = document.createElement('li');
             moreli.append(more);
+            
+            let more_deepl = document.createElement('a');
+            more_deepl.innerHTML='more on deepl ...';
+            more_deepl.href=url_deepl;
+            more_deepl.target="_blank"
+            let moreli_deepl = document.createElement('li');
+            moreli_deepl.append(more_deepl);
+
             resultDiv.querySelector("ul").append(moreli);
+            resultDiv.querySelector("ul").append(moreli_deepl);
             //resultDiv.appendChild(more);
 
             searchinput.setSelectionRange(0, searchinput.value.length);
